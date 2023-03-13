@@ -4,27 +4,27 @@ pipeline {
     stages {
         stage('Preparing gradlew') {
             steps {
-               bat  'gradlew.bat'
+                sh 'chmod +x gradlew'
             }
         }
         stage('test') {
             steps {
-                bat 'gradlew.bat test'
+                sh './gradlew test'
             }
         }
         stage('build') {
             steps {
-                bat 'gradlew.bat build'
+                sh './gradlew build'
             }
         }
         stage('Release') {
             steps {
-                bat 'token="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"'
-                bat 'tag=$(git describe --tags)'
-                bat 'message="$(git for-each-ref refs/tags/$tag --format=\'%(contents)\')"'
-                bat 'name=$(echo "$message" | head -n1)'
-                bat 'description=$(echo "$message" | tail -n +3)'
-                bat 'release=$(curl -XPOST -H "Authorization:token $token" --data \'{"tag_name": "$tag", "target_commitish": "main", "name": "$name", "body": "$description", "draft": false, "prerelease": false}\' "https://api.github.com/repos/YoussF/caesar-cipher/releases)"'
+                sh 'token="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"'
+                sh 'tag=$(git describe --tags)'
+                sh 'message="$(git for-each-ref refs/tags/$tag --format=\'%(contents)\')"'
+                sh 'name=$(echo "$message" | head -n1)'
+                sh 'description=$(echo "$message" | tail -n +3)'
+                sh 'release=$(curl -XPOST -H "Authorization:token $token" --data \'{"tag_name": "$tag", "target_commitish": "main", "name": "$name", "body": "$description", "draft": false, "prerelease": false}\' "https://api.github.com/repos/YoussF/caesar-cipher/releases)"'
             }
         }
         stage('Deploy') {
