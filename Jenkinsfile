@@ -13,12 +13,12 @@ pipeline {
                 bat './gradlew test'
             }
         }
-      /*  stage('build') {
+        stage('build') {
             steps {
-                sh './gradlew build'
+                bat './gradlew build'
             }
         }
-        stage('Release') {
+      /*  stage('Release') {
             steps {
                 sh 'token="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"'
                 sh 'tag=$(git describe --tags)'
