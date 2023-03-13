@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Preparing gradlew') {
             steps {
-                 bat 'chmod +x gradlew.bat'
+               bat  './gradlew'
             }
         }
         stage('test') {
