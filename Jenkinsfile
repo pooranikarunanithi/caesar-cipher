@@ -8,12 +8,12 @@ pipeline {
                 bat 'gradlew.bat'
             }
         }
-      /* stage('test') {
+       stage('test') {
             steps {
-                sh './gradlew test'
+                bat './gradlew test'
             }
         }
-        stage('build') {
+      /*  stage('build') {
             steps {
                 sh './gradlew build'
             }
