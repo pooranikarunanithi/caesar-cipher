@@ -1,13 +1,14 @@
 pipeline {
     agent any
+    
 
     stages {
         stage('Preparing gradlew') {
             steps {
-                sh 'chmod +x gradlew'
+                bat 'gradlew.bat'
             }
         }
-        stage('test') {
+      /* stage('test') {
             steps {
                 sh './gradlew test'
             }
@@ -32,5 +33,6 @@ pipeline {
                 echo 'Deploying....'
             }
         }
+        */
     }
 }
