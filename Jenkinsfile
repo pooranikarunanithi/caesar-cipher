@@ -1,20 +1,20 @@
 pipeline {
-    agent {label 'linux'}
+    agent any
 
     stages {
         stage('Preparing gradlew') {
             steps {
-                sh 'chmod +x gradlew'
+                sh 'chmod +x gradlew.bat'
             }
         }
         stage('test') {
             steps {
-                sh './gradlew test'
+                sh './gradlew.bat test'
             }
         }
         stage('build') {
             steps {
-                sh'./gradlew build'
+                sh'./gradlew.bat build'
             }
         }
         stage('Release') {
