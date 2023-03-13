@@ -1,5 +1,5 @@
-pipeline {
-    agent {lin}
+ agent {
+        label 'linux-agent'
 
     stages {
         stage('Poorani test') {
@@ -9,10 +9,10 @@ pipeline {
         }
         
         stage('Preparing gradlew') {
-    steps {
-        bat 'gradlew.bat'
-    }
-}
+            steps {
+                bat'chmod +x gradlew'
+            }
+        }
         stage('test') {
             steps {
                 sh './gradlew test'
