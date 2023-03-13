@@ -2,11 +2,13 @@ pipeline {
     agent any
 
     stages {
-        stage('Preparing gradlew') {
-            steps {
-                bat 'chmod +x gradlew'
-            }
+    stage('Preparing gradlew') {
+        steps {
+            bat 'icacls gradlew /grant:r "%username%":(F)'
         }
+    }
+}
+
         stage('test') {
             steps {
                 bat './gradlew test'
