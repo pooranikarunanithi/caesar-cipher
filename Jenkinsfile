@@ -7,7 +7,7 @@ pipeline {
             bat 'icacls gradlew /grant:r "%username%":(F)'
         }
     }
-}
+
 
         stage('test') {
             steps {
