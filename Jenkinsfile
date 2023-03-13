@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent {lin}
 
     stages {
         stage('Poorani test') {
@@ -9,10 +9,10 @@ pipeline {
         }
         
         stage('Preparing gradlew') {
-            steps {
-                sh 'chmod +x gradlew'
-            }
-        }
+    steps {
+        bat 'gradlew.bat'
+    }
+}
         stage('test') {
             steps {
                 sh './gradlew test'
