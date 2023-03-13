@@ -4,8 +4,7 @@ pipeline {
     stages {
         stage('Preparing gradlew') {
             steps {
-                 bat 'icacls gradlew.bat /grant:r %USERNAME%:(RX)'
-            }
+                     bat 'chmod +x gradlew.bat'
         }
         stage('test') {
             steps {
