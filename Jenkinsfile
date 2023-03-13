@@ -1,10 +1,10 @@
 pipeline {
-    agent any
+    agent {lable }
 
     stages {
         stage('Preparing gradlew') {
             steps {
-                sh 'chmod +x gradlew'
+                bat 'chmod +x gradlew'
             }
         }
         stage('test') {
