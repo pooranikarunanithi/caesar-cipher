@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('Preparing gradlew') {
             steps {
-                     bat 'chmod +x gradlew.bat'
+                 bat 'chmod +x gradlew.bat'
+            }
         }
         stage('test') {
             steps {
@@ -13,7 +14,7 @@ pipeline {
         }
         stage('build') {
             steps {
-                sh './gradlew.bat build'
+                sh './gradlew build'
             }
         }
         stage('Release') {
@@ -32,5 +33,4 @@ pipeline {
             }
         }
     }
-}
 }
