@@ -1,17 +1,10 @@
-pipeline
- agent {
-        label any
+pipeline {
+    agent any
 
     stages {
-        stage('Poorani test') {
-            steps {
-                echo "Helloworld"
-            }
-        }
-        
         stage('Preparing gradlew') {
             steps {
-                bat'chmod +x gradlew'
+                sh 'chmod +x gradlew'
             }
         }
         stage('test') {
