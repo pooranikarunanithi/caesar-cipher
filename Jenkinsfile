@@ -1,5 +1,6 @@
+pipeline
  agent {
-        label 'linux-agent'
+        label any
 
     stages {
         stage('Poorani test') {
