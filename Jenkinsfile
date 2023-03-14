@@ -21,8 +21,10 @@ pipeline {
         stage('Release') {
             steps {
                 withCredentials([string(credentialsId: 'mytoken', variable: 'token')])
-             {             
-                def tag=$(git describe --tags --always)'
+             {   
+                def tag = bat(returnStdout: true, script: 'git describe --tags --always').trim()
+          
+                /*def tag=bat $(git describe --tags --always)'*/
                 bat'message="$(git for-each-ref refs/tags/$tag --format=\'%(contents)\')"'
                 bat'name=$(echo "$message" | head -n1)'
                 bat'description=$(echo "$message" | tail -n +3)'
