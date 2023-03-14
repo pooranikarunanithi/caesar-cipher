@@ -22,7 +22,7 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'mytoken', variable: 'token')])
              {             
-                bat'tag=$(git describe --tags --always)'
+                def tag=$(git describe --tags --always)'
                 bat'message="$(git for-each-ref refs/tags/$tag --format=\'%(contents)\')"'
                 bat'name=$(echo "$message" | head -n1)'
                 bat'description=$(echo "$message" | tail -n +3)'
