@@ -26,11 +26,19 @@ pipeline {
           
                 bat 'set tag= && for /f "delims=" %%i in (\'git describe --tags --always\') do set tag=%%i'
                  script {
-    def tag = bat(returnStdout: true, script: 'echo %tag%').trim()
+                def tag = bat(returnStdout: true, script: 'echo %tag%').trim()
     // Use the tag variable as needed
-  }
+                }
+                bat '''
+                setlocal enabledelayedexpansion
+                for /f "usebackq delims=" %%i in (`git for-each-ref refs/tags/%tag% --format="(contents)"`) do (
+                set "message=%%i"
+                )
+                echo %message%
+                '''
 
-                bat'message="$(git for-each-ref refs/tags/$tag --format=\'%(contents)\')"'
+
+
                 bat'name=$(echo "$message" | head -n1)'
                 bat'description=$(echo "$message" | tail -n +3)'
                 bat'release=$(curl -XPOST -H "Authorization:token $token" --data \'{"tag_name": "$tag", "target_commitish": "main", "name": "$name", "body": "$description", "draft": false, "prerelease": false}\' "https://api.github.com/repos/YoussF/caesar-cipher/releases)"'
