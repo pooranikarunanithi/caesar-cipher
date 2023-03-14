@@ -21,7 +21,7 @@ pipeline {
         stage('Release') {
             steps {
                 bat 'set token=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'
-                bat '`git describe --tags` > tag.txt'
+                bat 'tag=$(git describe --tags --always)'
                 bat 'set /p tag=<tag.txt'
                 bat '`git show %tag% | findstr /b /c:"" /c:"[A-Za-z]"` > message.txt'
                 bat 'set /p name=<message.txt'
