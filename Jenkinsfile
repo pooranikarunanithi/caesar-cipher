@@ -66,6 +66,9 @@ pipeline {
   sh 'release=$(curl -XPOST -H "Authorization:token $token" --data \'{"tag_name": "$tag", "target_commitish": "main", "name": "$name", "body": "$description", "draft": false, "prerelease": false}\' "https://api.github.com/repos/YoussF/caesar-cipher/releases)"'
             }
         }
+        }
+    }
+}
         /*stage('Deploy') {
             steps {
                 echo 'Deploying....'
