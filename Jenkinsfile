@@ -25,7 +25,10 @@ pipeline {
               
           
                 bat 'set tag= && for /f "delims=" %%i in (\'git describe --tags --always\') do set tag=%%i'
-def tag = bat(returnStdout: true, script: 'echo %tag%').trim()
+                 script {
+    def tag = bat(returnStdout: true, script: 'echo %tag%').trim()
+    // Use the tag variable as needed
+  }
 
                 bat'message="$(git for-each-ref refs/tags/$tag --format=\'%(contents)\')"'
                 bat'name=$(echo "$message" | head -n1)'
