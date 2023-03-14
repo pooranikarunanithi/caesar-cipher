@@ -39,9 +39,47 @@ pipeline {
 
 
 
-                bat'name=$(echo "$message" | head -n1)'
-                bat'description=$(echo "$message" | tail -n +3)'
-                bat'release=$(curl -XPOST -H "Authorization:token $token" --data \'{"tag_name": "$tag", "target_commitish": "main", "name": "$name", "body": "$description", "draft": false, "prerelease": false}\' "https://api.github.com/repos/YoussF/caesar-cipher/releases)"'
+               /* bat'name=$(echo "$message" | head -n1)'*/
+               bat '''
+            for /f "usebackq delims=" %%i in (`echo %message% ^| more +1`) do (
+            set "name=%%i"
+            goto :done
+            )
+            :done
+            echo %name%
+                '''
+
+                /*bat'description=$(echo "$message" | tail -n +3)'*/
+                  bat '''
+                    setlocal enabledelayedexpansion
+                    set /a count=0
+                    for /f "usebackq delims=" %%i in (`echo %message% ^| more +3`) do (
+                    set /a count+=1
+                    set "line[!count!]=%%i"
+                    )
+                    set "description=!line[1]!"
+                    for /l %%i in (2,1,!count!) do (
+                    set "description=!description!^r^n!line[%%i]!"
+                    )
+                    echo %description%
+                    '''
+bat '''
+setlocal enabledelayedexpansion
+set release_url=https://api.github.com/repos/YoussF/caesar-cipher/releases
+set release_data={^
+"tag_name": "%tag%",^
+"target_commitish": "main",^
+"name": "%name%",^
+"body": "%description%",^
+"draft": false,^
+"prerelease": false^
+}
+set release_data=!release_data:^"=^"
+set release_data=!release_data:^,=^,^r^n!
+curl -XPOST -H "Authorization: token %token%" -H "Content-Type: application/json" -d !release_data! %release_url%
+'''
+
+                    
             }
             }
         }
