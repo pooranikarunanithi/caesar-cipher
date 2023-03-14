@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Release') {
             steps {
-                bat 'set token="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"'
+                withCredentials([string(credentialsId: 'mytoken', variable: 'TOKEN')])
                 bat'tag=$(git describe --tags --always)'
                 bat'message="$(git for-each-ref refs/tags/$tag --format=\'%(contents)\')"'
                 bat'name=$(echo "$message" | head -n1)'
