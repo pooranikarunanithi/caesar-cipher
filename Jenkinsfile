@@ -25,7 +25,7 @@ pipeline {
                 bat'message="$(git for-each-ref refs/tags/$tag --format=\'%(contents)\')"'
                 bat'name=$(echo "$message" | head -n1)'
                 bat'description=$(echo "$message" | tail -n +3)'
-                bat'release=$(curl -XPOST -H "Authorization:token $token" --data \'{"tag_name": "$tag", "target_commitish": "main", "name": "$name", "body": "$description", "draft": false, "prerelease": false}\' "https://api.github.com/repos/YoussF/caesar-cipher/releases)"'
+                bat'release=$(curl -XPOST -H "Authorization:mytoken $mytoken" --data \'{"tag_name": "$tag", "target_commitish": "main", "name": "$name", "body": "$description", "draft": false, "prerelease": false}\' "https://api.github.com/repos/YoussF/caesar-cipher/releases)"'
             }
         }
         /*stage('Deploy') {
