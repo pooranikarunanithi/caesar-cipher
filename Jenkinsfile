@@ -23,7 +23,7 @@ pipeline {
 
                 /*sh 'token="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"'*/
                 withCredentials([string(credentialsId: 'mytoken', variable: 'token')])
-
+                {
                 /*sh 'tag=$(git describe --tags)'*/
                 bat 'set tag=%git describe --tags%'
 
