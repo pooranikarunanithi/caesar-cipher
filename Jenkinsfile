@@ -18,17 +18,19 @@ pipeline {
                 bat './gradlew build'
             }
         }
-      /*  stage('Release') {
+        stage('Release') {
             steps {
-                sh 'token="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"'
-                sh 'tag=$(git describe --tags)'
-                sh 'message="$(git for-each-ref refs/tags/$tag --format=\'%(contents)\')"'
-                sh 'name=$(echo "$message" | head -n1)'
-                sh 'description=$(echo "$message" | tail -n +3)'
-                sh 'release=$(curl -XPOST -H "Authorization:token $token" --data \'{"tag_name": "$tag", "target_commitish": "main", "name": "$name", "body": "$description", "draft": false, "prerelease": false}\' "https://api.github.com/repos/YoussF/caesar-cipher/releases)"'
+                bat 'set token=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'
+                bat '`git describe --tags` > tag.txt'
+                bat 'set /p tag=<tag.txt'
+                bat '`git show %tag% | findstr /b /c:"" /c:"[A-Za-z]"` > message.txt'
+                bat 'set /p name=<message.txt'
+                bat 'set /p description=<message.txt'
+                bat "set release=`curl -XPOST -H \"Authorization:token %token%\" --data \"{\\\"tag_name\\\": \\\"%tag%\\\", \\\"target_commitish\\\": \\\"main\\\", \\\"name\\\": \\\"%name%\\\", \\\"body\\\": \\\"%description%\\\", \\\"draft\\\": false, \\\"prerelease\\\": false}\" \"https://api.github.com/repos/YoussF/caesar-cipher/releases\"`"
+                bat 'echo %release%'
             }
         }
-        stage('Deploy') {
+        /*stage('Deploy') {
             steps {
                 echo 'Deploying....'
             }
