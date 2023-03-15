@@ -28,7 +28,8 @@ pipeline {
                 bat 'set tag=%git describe --tags%'
 
                 /*sh 'message="$(git for-each-ref refs/tags/$tag --format=\'%(contents)\')"'*/
-                bat 'for /f "delims=" %%i in (\'git for-each-ref refs/tags/%tag% --format^="%%(contents)"\') do set message=%%i'
+                for /F "delims=" %%i in ("git for-each-ref refs/tags/%%tag%% --format=\"%%(contents)\"") do set message=%%i
+
 
                /* sh 'name=$(echo "$message" | head -n1)'*/
                  bat 'echo %message% | set /p name='
