@@ -3,9 +3,9 @@ pipeline {
     
 
     stages {
-        stage('Preparing gradlew') {
+        stage('Preparing gradlew for Ubuntu') {
             steps {
-                bat 'gradlew.bat'
+                sh 'gradlew.bat'
             }
         }
        stage('test') {
