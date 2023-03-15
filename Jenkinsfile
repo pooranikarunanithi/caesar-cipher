@@ -29,10 +29,10 @@ pipeline {
                 sh 'release=$(curl -XPOST -H "Authorization:token $token" --data \'{"tag_name": "$tag", "target_commitish": "main", "name": "$name", "body": "$description", "draft": false, "prerelease": false}\' "https://api.github.com/repos/pooranikarunanithi/caesar-cipher/releases)"'
             }
         }
-        /*stage('Deploy') {
+        stage('Deploy') {
             steps {
                 echo 'Deploying....'
             }
-        }*/
+        }
     }
 }
