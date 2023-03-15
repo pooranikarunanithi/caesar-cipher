@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Release') {
             steps {
-                withCredentials([string(credentialsId: 'my_github_token', variable: 'GITHUB_TOKEN')])
+                withCredentials([string(credentialsId: 'mygittoken', variable: 'GITHUB_TOKEN')])
                 {
         
                 script {
@@ -31,7 +31,7 @@ pipeline {
                     RELEASE = sh (script: """
                     curl -X POST \
                         -H "Authorization: token ${GITHUB_TOKEN}" \
-                        -d '{"tag_name": "${TAG}","target_commitish": "main","name": "Release Initial","body": "First release","draft": false,"prerelease": false}' "https://api.github.com/repos/nityapisharodi/caesar-cipher/releases"|jq -r .id
+                        -d '{"tag_name": "${TAG}","target_commitish": "main","name": "Release Initial","body": "First release","draft": false,"prerelease": false}' "https://api.github.com/repos/pooranikarunanithi/caesar-cipher/releases"|jq -r .id
                         """,
                     returnStdout: true).trim()
                     echo "Release value: ${RELEASE}"
@@ -39,7 +39,7 @@ pipeline {
                     curl -s -X POST \
                             -H "Authorization: token ${GITHUB_TOKEN}" \
                             --header "Content-Type: application/octet-stream" \
-                            --data-binary @"build/libs/caesar-cipher.jar" https://uploads.github.com/repos/nityapisharodi/caesar-cipher/releases/${RELEASE}/assets?name=caesar-cipher.jar
+                            --data-binary @"build/libs/caesar-cipher.jar" https://uploads.github.com/repos/pooranikarunanithi/caesar-cipher/releases/${RELEASE}/assets?name=caesar-cipher.jar
                         """,
                     returnStdout: false)   
 
