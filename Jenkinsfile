@@ -28,13 +28,15 @@ pipeline {
                 bat 'set tag=%git describe --tags%'
 
                 /*sh 'message="$(git for-each-ref refs/tags/$tag --format=\'%(contents)\')"'*/
-                for (def tag : tags) {
-    // Execute a shell command to get the contents of the tag
-    def message = sh(script: 'git for-each-ref refs/tags/${tag} --format="%contents"', returnStdout: true).trim()
+                script {
+    for (def tag : tags) {
+      // Execute a shell command to get the contents of the tag
+      def message = sh(script: 'git for-each-ref refs/tags/${tag} --format="%contents"', returnStdout: true).trim()
 
-    // Output the tag and message
-    echo "Tag: ${tag}"
-    echo "Message: ${message}"
+      // Output the tag and message
+      echo "Tag: ${tag}"
+      echo "Message: ${message}"
+    }
   }
 
 
