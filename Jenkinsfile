@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Preparing gradlew') {
+        stage('Preparing gradlew for ubuntu') {
             steps {
                 sh 'chmod +x gradlew'
             }
