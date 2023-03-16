@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Release') {
             steps {
-                withCredentials([string(credentialsId: 'mygittoken', variable: 'GITHUB_TOKEN')])
+                withCredentials([string(credentialsId: 'mygittokenjenkins', variable: 'GITHUB_TOKEN')])
                 {
         
                 script {
